@@ -1,0 +1,17 @@
+﻿@model List<UrlShortener.Application.Models.UrlModel>;
+
+@{
+    ViewBag.Title = "UrlShortener";
+}
+
+<div class="form-wrapper">
+    <form action="@Url.Action("ShortUrl", "UrlShortener")" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#urls" id="urlsForm" method="post" novalidate="novalidate">
+
+        <input type="submit" class="form-save-button short-button" value="Short!" />
+
+        <div id="urls">
+            @await Html.PartialAsync("UrlsPartial", Model)
+        </div>
+    </form>
+</div>
+
