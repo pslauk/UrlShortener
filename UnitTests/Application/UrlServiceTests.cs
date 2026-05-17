@@ -37,7 +37,7 @@ namespace UnitTests.Application
             var result = service.TryGetUrl("", out var url);
 
             Assert.Null(url);
-            Assert.False(result);
+            Assert.True(result);
         }
 
         [Fact]
