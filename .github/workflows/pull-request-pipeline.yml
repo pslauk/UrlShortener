@@ -27,6 +27,8 @@ jobs:
       - name: Checkout repo (manual)
         if: github.event_name == 'workflow_dispatch'
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch }}
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
