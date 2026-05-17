@@ -1,0 +1,32 @@
+name: Develop Health Check
+
+on:
+  schedule:
+    - cron: '0 */4 * * *'
+
+  workflow_dispatch:
+
+jobs:
+  build-test:
+    name: Build and Test Develop
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout develop
+        uses: actions/checkout@v4
+        with:
+          ref: develop
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore --configuration Release
+
+      - name: Test
+        run: dotnet test --no-build --configuration Release
