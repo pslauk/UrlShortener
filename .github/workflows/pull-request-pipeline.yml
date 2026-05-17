@@ -1,0 +1,45 @@
+name: Pull Request
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - 'release/*'
+      - master
+
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to run tests for'
+        required: true
+        default: develop
+        type: string  
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo (PR)
+        if: github.event_name == 'pull_request'
+        uses: actions/checkout@v4
+
+      - name: Checkout repo (manual)
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch }}
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore --configuration Release
+
+      - name: Test
+        run: dotnet test --no-build --configuration Release
