@@ -34,13 +34,7 @@ namespace UrlShortener
             services.AddScoped<IUrlService, UrlService>();
             services.AddControllersWithViews();
 
-            var mapperConfig = new MapperConfiguration(mc =>
-            {
-                mc.AddProfile(new AutoMapperConfig());
-            });
-
-            IMapper mapper = mapperConfig.CreateMapper();
-            services.AddSingleton(mapper);
+            services.AddAutoMapper(cfg => cfg.AddProfile<AutoMapperConfig>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
