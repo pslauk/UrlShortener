@@ -24,9 +24,9 @@ namespace UrlShortener.Controllers
         [HttpPost]
         public ActionResult ShortUrl(List<UrlModel> urls)
         {
-            var newUserUrl = urls.FirstOrDefault(url => url.Id == null).UserUrl;
+            var newUserUrl = urls.FirstOrDefault(url => url.Id == null)?.UserUrl;
 
-            if (newUserUrl.IsUrl())
+            if (newUserUrl != null && newUserUrl.IsUrl())
             {
                 _urlService.CreateUrl(newUserUrl);
             }

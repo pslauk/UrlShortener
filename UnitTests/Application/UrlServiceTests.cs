@@ -57,11 +57,11 @@ namespace UnitTests.Application
 
         private IUrlService GetUrlService(Mock<IRepository<Url>> repositoryMock)
         {
+            var logger = Microsoft.Extensions.Logging.LoggerFactory.Create(builder => { });
             var mapperConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new AutoMapperConfig());
-            });
-
+            }, logger);
             var mockMapper = mapperConfig.CreateMapper();
             var workerMock = new Mock<IContextWorker>();
             workerMock.Setup(worker => worker.Commit());
