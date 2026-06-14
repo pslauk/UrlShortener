@@ -34,7 +34,7 @@ namespace UrlShortener.Application.Services
 
         public void CreateUrl(string newUserUrl)
         {
-            var newUrl = new Url { UserUrl = newUserUrl, Clics = 0 };
+            var newUrl = new Url { UserUrl = newUserUrl, Clicks = 0 };
             newUrl.ShortedUrl = CreateShortedUrl();
             _urlsRepository.Add(newUrl);
 
@@ -51,7 +51,7 @@ namespace UrlShortener.Application.Services
 
         public void UpdateClickedUrl(Url url)
         {
-            url.Clics++;
+            url.Clicks++;
             _urlsRepository.Update(url);
 
             _contextWorker.Commit();
