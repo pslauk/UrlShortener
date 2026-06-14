@@ -8,6 +8,6 @@
 
         public string ShortedUrl { get; set; }
 
-        public int Clics { get; set; }
+        public int Clicks { get; set; }
     }
 }

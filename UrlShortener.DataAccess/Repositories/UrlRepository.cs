@@ -32,20 +32,20 @@ namespace UrlShortener.DataAccess.Repositories
             return _dbContext.Urls.Where(where).ToList();
         }
 
-        public void Add(Url category)
+        public void Add(Url urlItem)
         {
-            _dbContext.Urls.Add(category);
+            _dbContext.Urls.Add(urlItem);
         }
 
-        public void Update(Url category)
+        public void Update(Url urlItem)
         {
-            _dbContext.Entry(category).State = EntityState.Modified;
+            _dbContext.Entry(urlItem).State = EntityState.Modified;
         }
 
-        public void Delete(Url category)
+        public void Delete(Url urlItem)
         {
-            _dbContext.Urls.Attach(category);
-            _dbContext.Urls.Remove(category);
+            _dbContext.Urls.Attach(urlItem);
+            _dbContext.Urls.Remove(urlItem);
         }
     }
 }

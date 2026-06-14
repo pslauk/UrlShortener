@@ -57,11 +57,11 @@ namespace UnitTests.Application
 
         private IUrlService GetUrlService(Mock<IRepository<Url>> repositoryMock)
         {
+            var logger = Microsoft.Extensions.Logging.LoggerFactory.Create(builder => { });
             var mapperConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new AutoMapperConfig());
-            });
-
+            }, logger);
             var mockMapper = mapperConfig.CreateMapper();
             var workerMock = new Mock<IContextWorker>();
             workerMock.Setup(worker => worker.Commit());
@@ -73,8 +73,8 @@ namespace UnitTests.Application
         {
             var urls = new List<Url>
             {
-                new Url { Id = 1, UserUrl = "https://myurl.com", ShortedUrl = _testShortedUrl, Clics = 5 },
-                new Url { Id = 2, UserUrl = "http://TEST.ua", ShortedUrl = "15Tre7F", Clics = 0 }
+                new Url { Id = 1, UserUrl = "https://myurl.com", ShortedUrl = _testShortedUrl, Clicks = 5 },
+                new Url { Id = 2, UserUrl = "http://TEST.ua", ShortedUrl = "15Tre7F", Clicks = 0 }
             };
             
             return urls;
