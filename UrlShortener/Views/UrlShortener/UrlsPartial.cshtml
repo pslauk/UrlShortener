@@ -15,7 +15,7 @@
         @Html.HiddenFor(model => Model[i].Id)
         @Html.HiddenFor(model => Model[i].UserUrl)
         @Html.HiddenFor(model => Model[i].ShortedUrl)
-        @Html.HiddenFor(model => Model[i].Clics)
+        @Html.HiddenFor(model => Model[i].Clicks)
 
         <div class="url-item">
             <div><b>Source url:</b> @Model[i].UserUrl</div>
@@ -25,7 +25,7 @@
                         @Url.Action("UserShortedUrl", "Home", new { shortedUrlPart = Model[i].ShortedUrl }, scheme, host)
                     </a>
             </div>
-            <div><b>Clics:</b> @Model[i].Clics</div>
+            <div><b>Clicks:</b> @Model[i].Clicks</div>
         </div>
     }
 }
