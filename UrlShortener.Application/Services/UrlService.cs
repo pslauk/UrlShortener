@@ -57,6 +57,16 @@ namespace UrlShortener.Application.Services
             _contextWorker.Commit();
         }
 
+        public void DeleteUrl(int id)
+        {
+            var url = _urlsRepository.GetById(id);
+            if (url == null) return;
+
+            _urlsRepository.Delete(url);
+
+            _contextWorker.Commit();
+        }
+
         private string CreateShortedUrl()
         {
             string shortedUrl;
