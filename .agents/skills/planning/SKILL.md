@@ -34,7 +34,7 @@ Before writing anything, thoroughly research the codebase.
 #### Step 1b Frontend Research
 1. Read and analyze frontend code related to {task}.
 2. Search `UrlShortener/Views/` for Razor Views.
-3. Search `UrlShortener/wwroot/` for static assets, css, js.
+3. Search `UrlShortener/wwwroot/` for static assets, css, js.
 4. Return: list of ALL affected frontend files with descriptions.
 
 #### Step 1c Test & Migration Research

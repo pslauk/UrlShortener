@@ -13,8 +13,8 @@ You have been asked to execute a task Plan.
 
 ### Phase 1: Load the Plan
 
-1. **If user specified a task ID** — read `docs/plans/TASK-{ID}-*-Plan.md`
-2. **If not specified** — look for the most recent `docs/plans/TASK-*-Plan.md` file
+1. **If user specified a task ID** — read `docs/plans/TASK-{ID}-*-plan.md`
+2. **If not specified** — look for the most recent `docs/plans/TASK-*-plan.md` file
 3. **Read the entire Plan document** carefully
 4. **Confirm** execution intent: either the user explicitly asked to execute now, or the latest Plan review marked the Plan as ready.
 
