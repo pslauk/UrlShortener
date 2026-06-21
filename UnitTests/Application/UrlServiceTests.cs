@@ -55,7 +55,43 @@ namespace UnitTests.Application
             Assert.True(result);
         }
 
+        [Fact]
+        public void DeleteUrlShouldCallRepositoryDeleteAndCommit()
+        {
+            var testUrl = GetTestUrls().First();
+            var repositoryMock = new Mock<IRepository<Url>>();
+            repositoryMock.Setup(repo => repo.GetById(testUrl.Id)).Returns(testUrl);
+            var workerMock = new Mock<IContextWorker>();
+            workerMock.Setup(worker => worker.Commit());
+            var service = GetUrlService(repositoryMock, workerMock);
+
+            service.DeleteUrl(testUrl.Id);
+
+            repositoryMock.Verify(repo => repo.GetById(testUrl.Id), Times.Once);
+            repositoryMock.Verify(repo => repo.Delete(testUrl), Times.Once);
+            workerMock.Verify(worker => worker.Commit(), Times.Once);
+        }
+
+        [Fact]
+        public void DeleteUrlShouldDoNothingIfUrlNotFound()
+        {
+            var repositoryMock = new Mock<IRepository<Url>>();
+            repositoryMock.Setup(repo => repo.GetById(It.IsAny<int>())).Returns((Url)null);
+            var workerMock = new Mock<IContextWorker>();
+            var service = GetUrlService(repositoryMock, workerMock);
+
+            service.DeleteUrl(999);
+
+            repositoryMock.Verify(repo => repo.Delete(It.IsAny<Url>()), Times.Never);
+            workerMock.Verify(worker => worker.Commit(), Times.Never);
+        }
+
         private IUrlService GetUrlService(Mock<IRepository<Url>> repositoryMock)
+        {
+            return GetUrlService(repositoryMock, new Mock<IContextWorker>());
+        }
+
+        private IUrlService GetUrlService(Mock<IRepository<Url>> repositoryMock, Mock<IContextWorker> workerMock)
         {
             var logger = Microsoft.Extensions.Logging.LoggerFactory.Create(builder => { });
             var mapperConfig = new MapperConfiguration(mc =>
@@ -63,7 +99,6 @@ namespace UnitTests.Application
                 mc.AddProfile(new AutoMapperConfig());
             }, logger);
             var mockMapper = mapperConfig.CreateMapper();
-            var workerMock = new Mock<IContextWorker>();
             workerMock.Setup(worker => worker.Commit());
 
             return new UrlService(workerMock.Object, repositoryMock.Object, mockMapper);

@@ -26,6 +26,10 @@
                     </a>
             </div>
             <div><b>Clicks:</b> @Model[i].Clicks</div>
+            <button type="button" class="delete-button"
+                    onclick="$.post('@Url.Action("DeleteUrl", "UrlShortener")', { id: @Model[i].Id }, function(html){ $('#urls').html(html); })">
+                Delete
+            </button>
         </div>
     }
 }

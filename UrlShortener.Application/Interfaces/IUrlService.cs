@@ -13,5 +13,7 @@ namespace UrlShortener.Application.Interfaces
         bool TryGetUrl(string shortedUrlPart, out Url url);
 
         void UpdateClickedUrl(Url url);
+
+        void DeleteUrl(int id);
     }
 }

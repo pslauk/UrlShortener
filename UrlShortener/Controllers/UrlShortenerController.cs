@@ -33,5 +33,13 @@ namespace UrlShortener.Controllers
 
             return PartialView("UrlsPartial", _urlService.GetUrlViewModel());
         }
+
+        [HttpPost]
+        public ActionResult DeleteUrl(int id)
+        {
+            _urlService.DeleteUrl(id);
+
+            return PartialView("UrlsPartial", _urlService.GetUrlViewModel());
+        }
     }
 }
